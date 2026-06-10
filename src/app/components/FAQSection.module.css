@@ -1,0 +1,121 @@
+.section {
+  position: relative;
+  padding: var(--section-py) var(--section-px);
+  background: linear-gradient(
+    180deg,
+    var(--beige) 0px,
+    var(--white) var(--blend-size),
+    var(--white) 100%
+  );
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: 120px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.item {
+  border-radius: var(--radius-md);
+  background: var(--beige);
+  overflow: hidden;
+  transition: box-shadow 0.25s;
+}
+
+.item.open {
+  box-shadow: var(--shadow-sm);
+  background: var(--white);
+}
+
+.question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  font-size: clamp(16px, 1.4vw, 18px);
+  font-weight: 600;
+  color: var(--brown);
+  line-height: 1.45;
+  transition: color 0.2s;
+}
+
+.question:hover {
+  color: var(--rose-gold-dark);
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--beige-warm);
+  color: var(--rose-gold-dark);
+  transition: transform 0.3s var(--ease-out), background 0.2s;
+}
+
+.open .icon {
+  transform: rotate(45deg);
+  background: var(--rose-gold);
+  color: #fff;
+}
+
+.answer {
+  padding: 0 28px 26px;
+  animation: fadeIn 0.3s var(--ease-out);
+}
+
+.answer p {
+  font-size: clamp(15px, 1.3vw, 17px);
+  color: var(--slate);
+  line-height: 1.7;
+}
+
+.answer a {
+  color: var(--rose-gold-dark);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(184,149,111,0.4);
+}
+
+.answer a:hover {
+  border-bottom-color: var(--rose-gold-dark);
+}
+
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .header { position: static; }
+}
+
+@media (max-width: 480px) {
+  .question { padding: 20px 22px; }
+  .answer { padding: 0 22px 22px; }
+}

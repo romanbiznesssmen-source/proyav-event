@@ -1,0 +1,147 @@
+.section {
+  position: relative;
+  padding: var(--section-py) var(--section-px);
+  background: linear-gradient(
+    180deg,
+    var(--white) 0px,
+    var(--beige) var(--blend-size),
+    var(--beige) 100%
+  );
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 600px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.photo {
+  aspect-ratio: 1;
+  background: linear-gradient(160deg, var(--brown) 0%, var(--brown-mid) 60%, rgba(184,149,111,0.4) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(26,18,16,0.3) 0%, transparent 60%);
+}
+
+.photo span {
+  font-size: 64px;
+  font-weight: 800;
+  font-style: italic;
+  color: var(--rose-gold-light);
+  position: relative;
+  z-index: 1;
+}
+
+.photoEmpty {
+  aspect-ratio: 1;
+  background: var(--beige-warm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--beige-dark);
+}
+
+.photoEmpty svg {
+  width: 48px;
+  height: 48px;
+}
+
+.empty {
+  background: transparent;
+  box-shadow: none;
+  border: 2px dashed var(--beige-dark);
+}
+
+.empty:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--rose-gold);
+  background: rgba(255,255,255,0.6);
+}
+
+.body {
+  padding: 28px 30px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.body h3 {
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 700;
+  color: var(--brown);
+  line-height: 1.35;
+}
+
+.role {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--rose-gold);
+  line-height: 1.45;
+}
+
+.bio {
+  font-size: clamp(15px, 1.3vw, 16px);
+  color: var(--slate);
+  line-height: 1.65;
+  flex: 1;
+}
+
+.empty .bio {
+  margin-bottom: 8px;
+}
+
+.cta {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+@media (max-width: 1024px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
