@@ -1,4 +1,4 @@
-import { SCHEDULE } from '../constants'
+import { EVENT, SCHEDULE } from '../constants'
 import styles from './ScheduleSection.module.css'
 
 export default function ScheduleSection() {
@@ -6,15 +6,15 @@ export default function ScheduleSection() {
     <section id="programa" className={styles.section}>
       <div className={`sectionInner ${styles.inner}`}>
         <div className={styles.header}>
-          <h2 className="sectionHeading">Програма дня</h2>
+          <h2 className="sectionHeading">Програма події</h2>
           <p className={styles.note}>
-            Програму буде оновлено реальними назвами виступів і активностей.
+            {EVENT.dateShort} · {EVENT.venueFull}
           </p>
         </div>
 
         <div className={styles.timeline}>
           {SCHEDULE.map((item, i) => (
-            <div key={item.time + item.activity} className={styles.row}>
+            <div key={`${item.time}-${item.activity}`} className={styles.row}>
               <span className={styles.time}>{item.time}</span>
               <div className={styles.marker}>
                 <span className={styles.dot} aria-hidden="true" />

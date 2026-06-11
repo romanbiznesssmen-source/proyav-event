@@ -15,15 +15,34 @@
 
 .bgImage {
   object-fit: cover;
-  object-position: center 35%;
+  object-position: center center;
+}
+
+.bgDesktop {
+  display: block;
+}
+
+.bgMobile {
+  display: none;
+  object-position: center center;
+}
+
+@media (max-width: 900px) {
+  .bgDesktop {
+    display: none;
+  }
+
+  .bgMobile {
+    display: block;
+  }
 }
 
 .overlay {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(105deg, rgba(26, 18, 16, 0.92) 0%, rgba(26, 18, 16, 0.78) 45%, rgba(26, 18, 16, 0.55) 100%),
-    linear-gradient(to top, rgba(26, 18, 16, 0.85) 0%, transparent 50%);
+    linear-gradient(105deg, rgba(26, 18, 16, 0.38) 0%, rgba(26, 18, 16, 0.28) 45%, rgba(26, 18, 16, 0.18) 100%),
+    linear-gradient(to top, rgba(26, 18, 16, 0.32) 0%, transparent 50%);
 }
 
 .glow {
@@ -65,6 +84,10 @@
   animation: slideUp 0.9s var(--ease-out) 0.1s both;
 }
 
+.headlineWrap {
+  padding-top: clamp(56px, 12vh, 140px);
+}
+
 .headline {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
@@ -85,22 +108,46 @@
   width: fit-content;
   padding: 12px 22px;
   border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(26, 18, 16, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
   font-family: 'Montserrat', sans-serif;
   font-size: clamp(14px, 1.3vw, 16px);
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(255, 255, 255, 0.92);
   line-height: 1.4;
+}
+
+.dateHighlight {
+  font-weight: 700;
+  color: var(--rose-gold-light);
+  text-shadow: 0 0 24px rgba(220, 196, 168, 0.35);
 }
 
 .desc {
   font-family: 'Montserrat', sans-serif;
-  font-size: clamp(16px, 1.5vw, 19px);
-  font-weight: 400;
-  color: #fff;
+  font-size: clamp(17px, 1.6vw, 20px);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.82);
   line-height: 1.65;
   max-width: 560px;
+  letter-spacing: 0.01em;
+}
+
+.descBrand {
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+.descHighlight {
+  font-weight: 700;
+  color: var(--rose-gold-light);
+  text-shadow: 0 0 20px rgba(220, 196, 168, 0.3);
 }
 
 .ctaCard {
@@ -109,10 +156,16 @@
   justify-content: space-between;
   gap: 20px;
   padding: 28px 28px 28px 32px;
-  background: #fff;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(135deg, var(--rose-gold-light) 0%, var(--rose-gold) 50%, var(--rose-gold-dark) 100%) border-box;
+  border: 2px solid transparent;
   border-radius: 24px;
   text-decoration: none;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(184, 149, 111, 0.18),
+    0 20px 60px rgba(0, 0, 0, 0.35),
+    0 0 40px rgba(184, 149, 111, 0.22);
   max-width: 420px;
   width: 100%;
   justify-self: end;
@@ -122,40 +175,19 @@
 
 .ctaCard:hover {
   transform: translateY(-4px);
-  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.42);
+  box-shadow:
+    0 0 0 1px rgba(184, 149, 111, 0.32),
+    0 28px 72px rgba(0, 0, 0, 0.42),
+    0 0 56px rgba(184, 149, 111, 0.36);
 }
 
-.ctaBody {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 0;
-}
-
-.ctaLabel {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--slate);
-}
-
-.ctaMain {
+.ctaText {
   font-family: 'Montserrat', sans-serif;
   font-size: clamp(28px, 3vw, 36px);
   font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--brown);
   line-height: 1;
-}
-
-.ctaSub {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--slate);
-  line-height: 1.45;
 }
 
 .ctaArrow {
@@ -180,22 +212,30 @@
   .inner {
     display: flex;
     flex-direction: column;
-    min-height: calc(100dvh - var(--header-h) - var(--section-py));
+    min-height: calc(100dvh - var(--header-offset));
     gap: 20px;
-    padding: calc(var(--header-offset) + 32px) 0 var(--section-py);
+    padding: var(--header-offset) 0 var(--section-py);
   }
 
   .content {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
     padding-bottom: 0;
     min-height: 0;
   }
 
+  .headlineWrap {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    padding-top: clamp(72px, 22vh, 200px);
+    padding-bottom: 12px;
+    min-height: 0;
+  }
+
   .headline {
-    order: 1;
     font-size: clamp(34px, 8.8vw, 46px);
     max-width: none;
   }
@@ -208,7 +248,6 @@
 
   .desc {
     order: 3;
-    margin-top: auto;
     font-size: 16px;
     max-width: none;
     line-height: 1.6;
@@ -217,33 +256,14 @@
   .ctaCard {
     max-width: none;
     flex-shrink: 0;
-    padding: 14px 16px 14px 22px;
-    border-radius: 16px;
-    gap: 14px;
+    padding: 22px 20px 22px 28px;
+    border-radius: 20px;
+    gap: 16px;
     align-items: center;
   }
 
-  .ctaBody {
-    gap: 4px;
-    justify-content: center;
-  }
-
-  .ctaLabel {
-    font-size: 10px;
-    line-height: 1.2;
-  }
-
-  .ctaMain {
-    font-size: 22px;
-    line-height: 1.1;
-  }
-
-  .ctaSub {
-    font-size: 11px;
-    line-height: 1.3;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  .ctaText {
+    font-size: 26px;
   }
 
   .ctaArrow {
@@ -271,28 +291,28 @@
   }
 
   .ctaCard {
-    padding: 12px 14px 12px 20px;
+    padding: 20px 18px 20px 24px;
   }
 
-  .ctaMain {
-    font-size: 20px;
+  .ctaText {
+    font-size: 24px;
   }
 
   .ctaArrow {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
   }
 }
 
 @media (max-width: 900px) and (max-height: 740px) {
   .inner {
-    gap: 20px;
-    padding-top: calc(var(--header-offset) + 20px);
+    gap: 16px;
+    padding-top: var(--header-offset);
     padding-bottom: var(--section-py);
   }
 
   .content {
-    gap: 14px;
+    gap: 12px;
   }
 
   .headline {
@@ -305,15 +325,15 @@
   }
 
   .ctaCard {
-    padding: 12px 14px 12px 18px;
+    padding: 18px 16px 18px 22px;
   }
 
-  .ctaMain {
-    font-size: 20px;
+  .ctaText {
+    font-size: 22px;
   }
 
   .ctaArrow {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
   }
 }

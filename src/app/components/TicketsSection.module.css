@@ -38,23 +38,31 @@
   display: flex;
   flex-direction: column;
   background: var(--beige);
+  border: 1.5px solid var(--beige-dark);
   border-radius: var(--radius-lg);
   padding: 40px 32px 36px;
-  transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+  box-shadow: var(--shadow-xs);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s, border-color 0.3s;
 }
 
 .card:hover {
   transform: translateY(-4px);
+  border-color: var(--rose-gold-light);
   box-shadow: var(--shadow-md);
 }
 
 .featured {
-  background: var(--brown);
-  color: #fff;
+  border-color: var(--rose-gold);
+  box-shadow:
+    0 0 0 1px rgba(184, 149, 111, 0.15),
+    var(--shadow-sm);
 }
 
 .featured:hover {
-  box-shadow: var(--shadow-lg);
+  border-color: var(--rose-gold-dark);
+  box-shadow:
+    0 0 0 1px rgba(184, 149, 111, 0.25),
+    var(--shadow-md);
 }
 
 .badge {
@@ -78,20 +86,12 @@
   margin-bottom: 10px;
 }
 
-.featured .tierNote {
-  color: var(--rose-gold-light);
-}
-
 .tierName {
   font-size: clamp(24px, 2vw, 30px);
   font-weight: 700;
   color: var(--brown);
   margin-bottom: 28px;
   letter-spacing: -0.02em;
-}
-
-.featured .tierName {
-  color: #fff;
 }
 
 .features {
@@ -111,10 +111,6 @@
   position: relative;
 }
 
-.featured .features li {
-  color: rgba(255,255,255,0.65);
-}
-
 .features li::before {
   content: '✓';
   position: absolute;
@@ -125,10 +121,6 @@
   color: var(--rose-gold);
 }
 
-.featured .features li::before {
-  color: var(--rose-gold-light);
-}
-
 .price {
   font-size: clamp(44px, 4vw, 52px);
   font-weight: 800;
@@ -136,10 +128,6 @@
   letter-spacing: -0.04em;
   line-height: 1;
   margin-bottom: 28px;
-}
-
-.featured .price {
-  color: #fff;
 }
 
 .currency {
@@ -169,15 +157,6 @@
   background: var(--brown-mid);
   transform: translateY(-2px);
   box-shadow: var(--shadow-sm);
-}
-
-.featured .buy {
-  background: linear-gradient(135deg, var(--rose-gold), var(--rose-gold-dark));
-  box-shadow: var(--shadow-glow);
-}
-
-.featured .buy:hover {
-  box-shadow: 0 12px 40px rgba(184,149,111,0.4);
 }
 
 @media (max-width: 900px) {

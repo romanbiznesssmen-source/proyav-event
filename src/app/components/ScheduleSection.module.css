@@ -122,7 +122,9 @@
   }
 
   .time {
-    font-size: 14px;
+    font-size: 13px;
+    white-space: normal;
+    line-height: 1.3;
   }
 
   .activity {
