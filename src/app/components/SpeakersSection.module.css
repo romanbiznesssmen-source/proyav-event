@@ -225,9 +225,46 @@
   margin-bottom: 8px;
 }
 
-.cta {
-  align-self: flex-start;
+.ctaWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
   margin-top: auto;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ctaPlus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--beige-warm);
+  color: var(--rose-gold-dark);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.ctaEmail {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--rose-gold-dark);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.ctaEmail:hover {
+  color: var(--brown);
+  text-decoration: underline;
 }
 
 @media (max-width: 900px) {

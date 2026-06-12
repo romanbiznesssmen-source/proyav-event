@@ -41,7 +41,7 @@
 .row {
   display: grid;
   grid-template-columns: 88px 24px 1fr;
-  align-items: center;
+  align-items: start;
   column-gap: 20px;
   padding-bottom: 20px;
 }
@@ -53,14 +53,16 @@
   letter-spacing: 0.02em;
   white-space: nowrap;
   text-align: right;
+  padding-top: 18px;
 }
 
 .marker {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   align-self: stretch;
+  padding-top: 20px;
 }
 
 .dot {
@@ -86,10 +88,9 @@
 }
 
 .activity {
-  font-size: clamp(16px, 1.5vw, 19px);
-  font-weight: 500;
-  color: var(--brown-mid);
-  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   padding: 16px 24px;
   border-radius: var(--radius-md);
   background: var(--beige);
@@ -98,6 +99,32 @@
 
 .row:hover .activity {
   box-shadow: var(--shadow-xs);
+}
+
+.activityTitle {
+  font-size: clamp(16px, 1.5vw, 19px);
+  font-weight: 700;
+  color: var(--brown);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.activityDetails {
+  font-size: clamp(15px, 1.4vw, 17px);
+  font-weight: 500;
+  color: var(--brown-mid);
+  line-height: 1.55;
+}
+
+.activityNote {
+  font-size: 14px;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--slate);
+  line-height: 1.5;
+  padding-top: 4px;
+  margin-top: 2px;
+  border-top: 1px solid rgba(184, 149, 111, 0.2);
 }
 
 .row:last-child {
@@ -128,7 +155,24 @@
   }
 
   .activity {
-    font-size: 16px;
     padding: 14px 18px;
+    gap: 6px;
+  }
+
+  .activityTitle {
+    font-size: 16px;
+  }
+
+  .activityDetails {
+    font-size: 15px;
+  }
+
+  .activityNote {
+    font-size: 13px;
+  }
+
+  .time,
+  .marker {
+    padding-top: 16px;
   }
 }

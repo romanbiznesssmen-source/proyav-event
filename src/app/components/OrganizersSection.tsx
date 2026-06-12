@@ -4,10 +4,12 @@ import styles from './OrganizersSection.module.css'
 
 const ORGANIZERS = [
   {
+    name: 'Аліса',
     role: 'Експертка зі створення відео, ідейниця та співзасновниця PROяв івенту',
     bio: 'Допомагаю експертам проявлятись через відео і сама активно йду цим шляхом. Чесно і по-справжньому. 4 гранти на розвиток бізнесу. Міс Галицька Краса 2025. А також — мама чемпіона України, яка показала своїм прикладом: проявлятись — це нормально і це дає результати.',
   },
   {
+    name: 'Ольга',
     role: 'Підприємиця, авторка освітніх та розважальних проєктів, співзасновниця та ідейниця PROяв івенту',
     bio: 'Починала у 2016 в Енергодарі — потім перевезла всі свої ідеї до Тернополя і почала знову. Гордість Тернопілля 2025 у номінації підприємець року.',
   },
@@ -33,7 +35,7 @@ export default function OrganizersSection() {
           <div className={styles.photo}>
             <Image
               src={ASSETS.organizers}
-              alt="Аліса Нєвєрова і Ольга Тедеєва"
+              alt="Аліса і Ольга"
               fill
               sizes="(max-width: 700px) 100vw, 800px"
               className={styles.photoImage}
@@ -41,11 +43,12 @@ export default function OrganizersSection() {
           </div>
 
           <div className={styles.content}>
-            <h3 className={styles.names}>Аліса Нєвєрова і Ольга Тедеєва</h3>
+            <h3 className={styles.names}>Аліса і Ольга</h3>
 
             <div className={styles.profiles}>
               {ORGANIZERS.map((person, index) => (
                 <div key={index} className={styles.person}>
+                  <p className={styles.personName}>{person.name}</p>
                   <p className={styles.role}>{person.role}</p>
                   <p className={styles.bio}>{person.bio}</p>
                 </div>

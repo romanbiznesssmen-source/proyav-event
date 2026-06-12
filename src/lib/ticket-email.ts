@@ -1,0 +1,114 @@
+import QRCode from 'qrcode'
+import { EVENT, LINKS } from '@/app/constants'
+import { sendEmail } from './email'
+import type { StoredOrder } from './store'
+import {
+  generateTicketInvitationPng,
+  getTicketFilename,
+  getTicketQrPayload,
+} from './ticket-invitation'
+
+function escapeHtml(value: string) {
+  return value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+}
+
+export async function sendTicketEmail(order: StoredOrder) {
+  const qrPayload = getTicketQrPayload(order.orderReference)
+  const invitationPng = await generateTicketInvitationPng(order)
+  const filename = getTicketFilename(order.orderReference)
+  const qrDataUrl = await QRCode.toDataURL(qrPayload, {
+    margin: 1,
+    width: 280,
+    color: { dark: '#1a1210', light: '#ffffff' },
+  })
+
+  const subject = `Твій квиток на PROяв івент — ${order.tierName}`
+  const html = `
+<!DOCTYPE html>
+<html lang="uk">
+  <body style="margin:0;padding:0;background:#faf6f1;font-family:Montserrat,Arial,sans-serif;color:#1a1210;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#faf6f1;padding:32px 16px;">
+      <tr>
+        <td align="center">
+          <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:24px;overflow:hidden;box-shadow:0 12px 40px rgba(26,18,16,0.08);">
+            <tr>
+              <td style="padding:36px 32px 24px;background:linear-gradient(135deg,#1a1210 0%,#3d2e26 100%);color:#ffffff;">
+                <p style="margin:0 0 8px;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#dcc4a8;">PROяв івент</p>
+                <h1 style="margin:0;font-size:28px;line-height:1.2;font-weight:700;">Дякуємо за оплату!</h1>
+                <p style="margin:14px 0 0;font-size:16px;line-height:1.6;color:rgba(255,255,255,0.86);">
+                  ${escapeHtml(order.name)}, твій квиток готовий. У вкладенні — файл-запрошення з QR-кодом.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:28px 32px 12px;">
+                <p style="margin:0 0 6px;font-size:14px;color:#8a7d72;">Тариф</p>
+                <p style="margin:0 0 18px;font-size:22px;font-weight:700;color:#1a1210;">${escapeHtml(order.tierName)}</p>
+                <p style="margin:0 0 6px;font-size:14px;color:#8a7d72;">Подія</p>
+                <p style="margin:0 0 6px;font-size:17px;font-weight:600;color:#1a1210;">${EVENT.dateShort}</p>
+                <p style="margin:0 0 18px;font-size:16px;color:#5c4a40;">${EVENT.venueFull} · ${EVENT.time}</p>
+                <p style="margin:0 0 6px;font-size:14px;color:#8a7d72;">Номер замовлення</p>
+                <p style="margin:0 0 24px;font-size:15px;font-weight:600;color:#9a7858;letter-spacing:0.04em;">${escapeHtml(order.orderReference)}</p>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding:8px 32px 28px;">
+                <div style="display:inline-block;padding:18px;border-radius:20px;background:#faf6f1;border:1px solid #e8ddd2;">
+                  <img src="${qrDataUrl}" alt="QR-код квитка" width="220" height="220" style="display:block;border-radius:12px;" />
+                </div>
+                <p style="margin:18px 0 0;font-size:14px;line-height:1.6;color:#5c4a40;">
+                  Збережи вкладення <strong>${escapeHtml(filename)}</strong> або цей лист. На реєстрації QR-код сканується один раз.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 32px 32px;">
+                <div style="padding:18px 20px;border-radius:16px;background:#faf6f1;border-left:4px solid #b8956f;">
+                  <p style="margin:0;font-size:14px;line-height:1.7;color:#5c4a40;">
+                    Після оплати ти автоматично долучишся до Telegram-чату комʼюніті події — там будуть фото, відео та всі оновлення.
+                  </p>
+                </div>
+                <p style="margin:24px 0 0;font-size:14px;line-height:1.7;color:#8a7d72;text-align:center;">
+                  Питання? <a href="mailto:${LINKS.email}" style="color:#9a7858;">${LINKS.email}</a>
+                  · <a href="${LINKS.telegram}" style="color:#9a7858;">Telegram</a>
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`
+
+  const text = [
+    `Дякуємо за оплату, ${order.name}!`,
+    '',
+    `Тариф: ${order.tierName}`,
+    `Подія: ${EVENT.dateShort}, ${EVENT.venueFull}`,
+    `Номер замовлення: ${order.orderReference}`,
+    '',
+    `У вкладенні — файл-запрошення ${filename} з QR-кодом для входу.`,
+    `Посилання на квиток: ${qrPayload}`,
+    '',
+    `Питання: ${LINKS.email}`,
+  ].join('\n')
+
+  return sendEmail({
+    to: order.email,
+    subject,
+    text,
+    html,
+    attachments: [
+      {
+        filename,
+        content: invitationPng,
+        contentType: 'image/png',
+      },
+    ],
+  })
+}

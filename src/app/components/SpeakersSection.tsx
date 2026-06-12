@@ -109,9 +109,15 @@ export default function SpeakersSection() {
                     <p className={styles.bio}>
                       Хочеш виступити на PROяв івент? Ми відкриті до цікавих історій та експертизи.
                     </p>
-                    <a href={LINKS.becomeSpeaker} className={`btnGhost ${styles.cta}`}>
-                      Стати спікером
-                    </a>
+                    <div className={styles.ctaWrap}>
+                      <a href={LINKS.becomeSpeaker} className={`btnGhost ${styles.cta}`}>
+                        <span className={styles.ctaPlus} aria-hidden="true">+</span>
+                        Стати спікером
+                      </a>
+                      <a href={`mailto:${LINKS.email}`} className={styles.ctaEmail}>
+                        {LINKS.email}
+                      </a>
+                    </div>
                   </div>
                 </article>
               ))}

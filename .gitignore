@@ -24,6 +24,10 @@ yarn-error.log*
 .env*.local
 .env
 
+# runtime ticket data (local dev)
+/data/orders.json
+/data/ticket-sales.json
+
 # typescript
 *.tsbuildinfo
 

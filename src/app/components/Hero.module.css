@@ -105,6 +105,9 @@
 
 .badge {
   display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 12px;
   width: fit-content;
   padding: 12px 22px;
   border-radius: var(--radius-full);
@@ -120,6 +123,15 @@
   font-weight: 500;
   color: rgba(255, 255, 255, 0.92);
   line-height: 1.4;
+}
+
+.badgeDot {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--rose-gold-light);
+  box-shadow: 0 0 12px rgba(220, 196, 168, 0.6);
 }
 
 .dateHighlight {
@@ -156,6 +168,7 @@
   justify-content: space-between;
   gap: 20px;
   padding: 28px 28px 28px 32px;
+  text-decoration: none;
   background:
     linear-gradient(#fff, #fff) padding-box,
     linear-gradient(135deg, var(--rose-gold-light) 0%, var(--rose-gold) 50%, var(--rose-gold-dark) 100%) border-box;

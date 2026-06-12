@@ -34,7 +34,7 @@ const SOCIAL = [
   {
     name: 'Threads',
     handle: '@proyavevent',
-    href: LINKS.instagram,
+    href: LINKS.threads,
     image: ASSETS.social.threads,
   },
 ]

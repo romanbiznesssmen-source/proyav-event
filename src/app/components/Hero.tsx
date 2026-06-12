@@ -46,8 +46,10 @@ export default function Hero() {
 
             <p className={styles.badge}>
               <span className={styles.dateHighlight}>{EVENT.dateShort}</span>
-              {' · '}
-              Подоляни Холл · 9–21
+              <span className={styles.badgeDot} aria-hidden="true" />
+              Подоляни Холл
+              <span className={styles.badgeDot} aria-hidden="true" />
+              9–21
             </p>
           </div>
 

@@ -1,0 +1,97 @@
+.section {
+  position: relative;
+  padding: clamp(32px, 4vw, 48px) var(--section-px);
+  background: var(--beige);
+}
+
+.inner {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  max-width: 640px;
+  width: 100%;
+  padding: 32px 36px;
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  border: 1px solid var(--beige-dark);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+.heading {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(24px, 2.8vw, 32px);
+  font-weight: 700;
+  color: var(--brown);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.text {
+  font-size: clamp(15px, 1.4vw, 17px);
+  color: var(--brown-soft);
+  line-height: 1.65;
+  max-width: 480px;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 4px;
+  padding: 14px 24px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: 1.5px solid var(--beige-dark);
+  color: var(--brown-mid);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+
+.cta:hover {
+  border-color: var(--rose-gold);
+  background: rgba(184, 149, 111, 0.08);
+  color: var(--brown);
+}
+
+.ctaPlus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--beige);
+  color: var(--rose-gold-dark);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.email {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--rose-gold-dark);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.email:hover {
+  color: var(--brown);
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 28px 24px;
+  }
+}

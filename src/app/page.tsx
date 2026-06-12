@@ -5,6 +5,7 @@ import OrganizersSection from './components/OrganizersSection'
 import GallerySection from './components/GallerySection'
 import ScheduleSection from './components/ScheduleSection'
 import SpeakersSection from './components/SpeakersSection'
+import PartnersSection from './components/PartnersSection'
 import TicketsSection from './components/TicketsSection'
 import VenueSection from './components/VenueSection'
 import FAQSection from './components/FAQSection'
@@ -22,6 +23,7 @@ export default function Home() {
         <GallerySection />
         <ScheduleSection />
         <SpeakersSection />
+        <PartnersSection />
         <TicketsSection />
         <VenueSection />
         <FAQSection />
